@@ -55,7 +55,8 @@ public class LoginWindow extends JFrame {
 
     }
     public void validarLogin(){
-        SwingUtilities.invokeLater(new MainWindow()::iniciar);
+        boolean boss = false;
+        SwingUtilities.invokeLater(new MainWindow(boss)::iniciar);
         this.dispose();
     }
 
