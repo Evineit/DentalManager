@@ -58,6 +58,7 @@ public class MainWindow extends JFrame {
         return contentPanel;
     }
     public void addContent(JPanel contentPanel){
-        mainPanel.add(contentPanel,rightLimit);
+        this.contentPanel = contentPanel;
+        mainPanel.add(this.contentPanel,rightLimit);
     }
 }

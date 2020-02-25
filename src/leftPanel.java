@@ -58,16 +58,21 @@ public class leftPanel extends JPanel {
                 changeContent(new clientesPanel());
             }
         });
+        reportesJL.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                changeContent(new reportesPanel());
+            }
+        });
     }
 
     private void changeContent(JPanel content){
-
-        mainWindow.getContentPanel().removeAll();
-        mainWindow.getContentPanel().repaint();
-        mainWindow.getContentPanel().revalidate();
-        mainWindow.getContentPanel().add(content);
-        mainWindow.getContentPanel().repaint();
+        mainWindow.remove(mainWindow.getContentPanel());
+        mainWindow.repaint();
+        mainWindow.revalidate();
+        mainWindow.addContent(content);
+        mainWindow.repaint();
         mainWindow.pack();
-        mainWindow.getContentPanel().revalidate();
+        mainWindow.revalidate();
     }
 }
