@@ -5,28 +5,29 @@ import java.awt.event.MouseEvent;
 
 public class leftPanel extends JPanel {
     private MainWindow mainWindow;
-    private final JLabel  logoJL = new JLabel("DENTALMANA");
-    private final JLabel  inicioJL = new JLabel("Inicio");
-    private final JLabel  calendarioJL = new JLabel("Calendario");
-    private final JLabel  clientesJL = new JLabel("Clientes");
-    private final JLabel  reportesJL = new JLabel("Reportes");
-    private final JLabel  personalJL = new JLabel("Personal");
+
     public leftPanel(MainWindow mainWindow,boolean boss) {
         this.mainWindow = mainWindow;
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         setBackground(new Color(56, 71, 102));
         setOpaque(true);
+        JLabel logoJL = new JLabel("Dental Manager");
         logoJL.setFont(new Font("Serif",Font.BOLD,24));
         logoJL.setForeground(Color.white);
         logoJL.setAlignmentX(0.1f);
+        JLabel inicioJL = new JLabel("Inicio");
         inicioJL.setFont(new Font("Serif",Font.PLAIN,24));
         inicioJL.setForeground(Color.white);
+        JLabel calendarioJL = new JLabel("Calendario");
         calendarioJL.setFont(new Font("Serif",Font.PLAIN,24));
         calendarioJL.setForeground(Color.white);
+        JLabel clientesJL = new JLabel("Clientes");
         clientesJL.setFont(new Font("Serif",Font.PLAIN,24));
         clientesJL.setForeground(Color.white);
+        JLabel reportesJL = new JLabel("Reportes");
         reportesJL.setFont(new Font("Serif",Font.PLAIN,24));
         reportesJL.setForeground(Color.white);
+        JLabel personalJL = new JLabel("Personal");
         personalJL.setFont(new Font("Serif",Font.PLAIN,24));
         personalJL.setForeground(Color.white);
         add(logoJL);
@@ -49,7 +50,7 @@ public class leftPanel extends JPanel {
         calendarioJL.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                changeContent(new calendarioPanel());
+                changeContent(new calendarioPanel(mainWindow));
             }
         });
         clientesJL.addMouseListener(new MouseAdapter() {

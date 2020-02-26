@@ -11,7 +11,8 @@ public class App extends JFrame {
                 try {
                     SwingUtilities.invokeLater(new MainWindow(true)::iniciar);
                 } catch (Exception e) {
-                    // TODO: handle exception
+                    e.printStackTrace();
+                    System.exit(1);
                 }
             }
         } else {

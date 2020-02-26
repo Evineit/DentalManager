@@ -1,6 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.security.PrivateKey;
 
 public class MainWindow extends JFrame {
     private JPanel mainPanel;
@@ -16,17 +15,18 @@ public class MainWindow extends JFrame {
     }
     private void iniciarUI(){
         setMinimumSize(new Dimension(800,600));
+        setResizable(false);
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
         leftLimit = new GridBagConstraints();
         leftLimit.gridwidth=1;
-        leftLimit.fill =leftLimit.BOTH;
+        leftLimit.fill = GridBagConstraints.BOTH;
         leftLimit.weighty = 100;
         leftLimit.weightx = 1;
         rightLimit = new GridBagConstraints();
         rightLimit.gridx = 1;
         rightLimit.gridwidth=3;
-        rightLimit.fill = rightLimit.BOTH;
+        rightLimit.fill = GridBagConstraints.BOTH;
         rightLimit.weightx = 3;
         rightLimit.weighty =100;
 
@@ -48,10 +48,6 @@ public class MainWindow extends JFrame {
         } catch (Throwable ignoreAndContinue) {
         }
         setVisible(true);
-    }
-
-    public void setContentPanel(JPanel contentPanel) {
-        this.contentPanel = contentPanel;
     }
 
     public JPanel getContentPanel() {
