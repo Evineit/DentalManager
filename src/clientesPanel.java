@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
@@ -10,6 +12,9 @@ public class clientesPanel extends JPanel {
     JLabel ordenar = new JLabel("Ordenar por:");
     JList listaClientes = new JList();
     CustomListModel listModel = new CustomListModel();
+    CustomTableModel model;
+    JTable tablaCitas;
+    JScrollPane citasScroll;
     private int selectList;
 
     JPanel topPanel;
@@ -43,14 +48,21 @@ public class clientesPanel extends JPanel {
         clieLastName = new JTextField();
         cliePhone = new JTextField();
         saveClie =  new JButton("Guardar");
-
         clienteCitas = new JPanel();
+        clienteCitas.setLayout(new BorderLayout());
         clientePagos=new JPanel();
         infoClientes.addTab("Informacion",clienteInfo);
         infoClientes.addTab("Citas",clienteCitas);
         infoClientes.addTab("Pagos",clientePagos);
         botPanel.add(infoClientes);
         add(botPanel);
+        infoClientes.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                updateCitaCli();
+                updatePagosCli();
+            }
+        });
         nClienteB.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -64,6 +76,8 @@ public class clientesPanel extends JPanel {
                 selectList = listaClientes.getSelectedIndex();
                 if (selectList!=-1){
                     updateInfoCli();
+                    updateCitaCli();
+                    updatePagosCli();
                 }
             }
         });
@@ -100,6 +114,31 @@ public class clientesPanel extends JPanel {
         clienteInfo.add(cliePhone);
         clienteInfo.add(saveClie);
         clienteInfo.repaint();
+    }
+    private void updateCitaCli(){
+        cliente clie = listModel.getPersona(selectList);
+        clienteCitas.removeAll();
+        clienteCitas.repaint();
+        clienteCitas.revalidate();
+        model = new CustomTableModel(clie);
+        tablaCitas = new JTable(model);
+        citasScroll = new JScrollPane(tablaCitas);
+        clienteCitas.add(citasScroll);
+        clienteCitas.repaint();
+        clienteCitas.revalidate();
 
+    }
+    private void updatePagosCli(){
+        cliente clie = listModel.getPersona(selectList);
+        clientePagos.removeAll();
+        clientePagos.repaint();
+        clientePagos.revalidate();
+        clientePagos.add(new JLabel("Adeudo: "+ clie.getAdeudo()));
+        clientePagos.add(new JLabel("Cobrado: "+ clie.getCobrado()));
+        if (clie.getAdeudo()>0){
+            clientePagos.add(new Button("Efectuar Pago"));
+        }
+        clientePagos.repaint();
+        clientePagos.revalidate();
     }
 }

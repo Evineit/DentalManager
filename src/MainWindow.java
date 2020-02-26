@@ -7,14 +7,21 @@ public class MainWindow extends JFrame {
     private JPanel leftPanel;
     private GridBagConstraints leftLimit;
     private GridBagConstraints rightLimit;
-    private boolean boss;
+    private String accType;
 
-    public MainWindow(boolean boss) {
-        this.boss =boss;
+    /*TODO Saber que clientes ha atendido cada uno (Panel de personal?)
+    *Cuanto ha trabajado para reportes de ganancias
+    * Cobtros
+     * Abonos, liquidaciones
+     * Suelos?
+     * Tratamientos largos?
+    * */
+    public MainWindow(String accType) {
+        this.accType = accType;
         iniciarUI();
     }
     private void iniciarUI(){
-        setMinimumSize(new Dimension(800,600));
+        setMinimumSize(new Dimension(1000,600));
         setResizable(false);
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridBagLayout());
@@ -30,7 +37,7 @@ public class MainWindow extends JFrame {
         rightLimit.weightx = 3;
         rightLimit.weighty =100;
 
-        leftPanel = new leftPanel(this,boss);
+        leftPanel = new leftPanel(this,accType);
         mainPanel.add(leftPanel,leftLimit);
         contentPanel = new ContentPanel();
 

@@ -6,9 +6,8 @@ import java.awt.event.MouseEvent;
 public class LoginWindow extends JFrame {
     private JPanel mainPanel;
     private JButton login;
-    private JLabel usuarioLabel;
+    private JComboBox<usuarios> usersCombo = new JComboBox();
     private JLabel passLabel;
-    private JTextField usuarioField;
     private JPasswordField passField;
 
     public LoginWindow() {
@@ -21,13 +20,13 @@ public class LoginWindow extends JFrame {
         mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
         setContentPane(mainPanel);
         login = new JButton("Iniciar Sesion");
-        usuarioLabel = new JLabel("Usuario");
-        usuarioField = new JTextField();
+        for (usuarios user: usuarios.getListUsers()){
+            usersCombo.addItem(user);
+        }
         passLabel = new JLabel("Contraseña");
         passField = new JPasswordField();
 
-        mainPanel.add(usuarioLabel);
-        mainPanel.add(usuarioField);
+        mainPanel.add(usersCombo);
         mainPanel.add(passLabel);
         mainPanel.add(passField);
         mainPanel.add(login);
@@ -55,9 +54,18 @@ public class LoginWindow extends JFrame {
 
     }
     public void validarLogin(){
-        boolean boss = false;
-        SwingUtilities.invokeLater(new MainWindow(boss)::iniciar);
-        this.dispose();
+        usuarios selected = (usuarios) usersCombo.getSelectedItem();
+        char[] pass = passField.getPassword();
+        if (selected.getPassword().equals(new String(pass))){
+            SwingUtilities.invokeLater(new MainWindow(selected.getAccType())::iniciar);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null,"Contraseña incorrecta",
+                    "Error",JOptionPane.ERROR_MESSAGE);
+            passField.setText("");
+        }
+
+
     }
 
 }

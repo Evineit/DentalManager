@@ -12,6 +12,37 @@ public class cliente implements Serializable {
         this.telefono = telefono;
     }
 
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public double getAdeudo() {
+        return adeudo;
+    }
+
+    public void setAdeudo(double adeudo) {
+        this.adeudo = adeudo;
+    }
+
+    public double getCobrado() {
+        return cobrado;
+    }
+
+    public void setCobrado(double cobrado) {
+        this.cobrado = cobrado;
+    }
 
     public String getFullName(){
         return name +" "+lastname;

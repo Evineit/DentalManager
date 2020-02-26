@@ -8,7 +8,7 @@ public class App extends JFrame {
         if (args.length > 0) {
             if (args[0].equals("-debug")) {
                 try {
-                    SwingUtilities.invokeLater(new MainWindow(true)::iniciar);
+                    SwingUtilities.invokeLater(new MainWindow("Administrador")::iniciar);
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.exit(1);

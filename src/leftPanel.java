@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 public class leftPanel extends JPanel {
     private MainWindow mainWindow;
 
-    public leftPanel(MainWindow mainWindow,boolean boss) {
+    public leftPanel(MainWindow mainWindow,String accType) {
         this.mainWindow = mainWindow;
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         setBackground(new Color(56, 71, 102));
@@ -34,7 +34,7 @@ public class leftPanel extends JPanel {
         add(inicioJL);
         add(calendarioJL);
         add(clientesJL);
-        if (boss){
+        if (accType.equals("Administrador")){
             add(reportesJL);
             add(personalJL);
         }

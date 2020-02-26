@@ -19,9 +19,14 @@ public class agendaPanel extends JPanel {
 }
 class CustomTableModel extends AbstractTableModel{
     private ArrayList<Cita> citasList;
+
     public CustomTableModel(especialista especialista) {
         citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
         citasList.removeIf(cita -> !cita.getProveedor().equals(especialista));
+    }
+    public CustomTableModel(cliente cliente) {
+        citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
+        citasList.removeIf(cita -> cita.getCliente().equals(cliente));
     }
 
     @Override
