@@ -1,6 +1,4 @@
-import javax.swing.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class cliente implements Serializable {
     private String name;

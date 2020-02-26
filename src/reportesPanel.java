@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class reportesPanel extends JPanel {
     String[] monthName = {"Enero", "Febrero",

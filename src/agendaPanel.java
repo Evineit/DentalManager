@@ -1,6 +1,5 @@
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -9,18 +8,20 @@ public class agendaPanel extends JPanel {
     JTable tabla;
     CustomTableModel model;
 
-    public agendaPanel() {
+    public agendaPanel(especialista espec) {
         setLayout(new BorderLayout());
-        model = new CustomTableModel();
+        model = new CustomTableModel(espec);
         tabla = new JTable(model);
         scrollAgenda = new JScrollPane(tabla);
         add(scrollAgenda);
     }
+
 }
 class CustomTableModel extends AbstractTableModel{
-    private ArrayList citasList;
-    public CustomTableModel() {
-        citasList = CitasList.getCitasList();
+    private ArrayList<Cita> citasList;
+    public CustomTableModel(especialista especialista) {
+        citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
+        citasList.removeIf(cita -> !cita.getProveedor().equals(especialista));
     }
 
     @Override
@@ -45,7 +46,7 @@ class CustomTableModel extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Cita cita = (Cita) citasList.get(rowIndex);
+        Cita cita = citasList.get(rowIndex);
         switch (columnIndex) {
             case 0: return cita.getFecha();
             case 1: return cita.getHora();

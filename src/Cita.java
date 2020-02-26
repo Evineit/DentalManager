@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Cita  implements Serializable {
-    //TODO Date and time picker
     private LocalDate fecha;
     private LocalTime hora;
     private Servicio servicio;

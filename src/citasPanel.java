@@ -1,17 +1,12 @@
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.TimePicker;
-import jdk.nashorn.internal.scripts.JO;
 
 
 public class citasPanel extends JPanel {
@@ -46,12 +41,11 @@ public class citasPanel extends JPanel {
     private JLabel labelProvider;
     private JButton saveCita = new JButton("Guardar");
     private JButton cancelCita = new JButton("Cancelar");
-    //TODO: Make the appointment panel;
 
     public citasPanel(Object selectedItem) {
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         add(nCita);
-        add(labelSrchCliente);
+//        add(labelSrchCliente);
 //        fieldSrchCliente.setMaximumSize(new Dimension(100,30));
 //        add(fieldSrchCliente);
 //        add(labelnCliente);

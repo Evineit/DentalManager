@@ -6,9 +6,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class CitasList {
-    private static ArrayList citasList= new ArrayList();
+    private static ArrayList<Cita> citasList= new ArrayList();
     
-    public static ArrayList getCitasList() {
+    public static ArrayList<Cita> getCitasList() {
         if (citasList.size() == 0) {
             loadCitas();
             return citasList;
@@ -35,7 +35,7 @@ public class CitasList {
     }
 
     static void loadCitas() {
-        ObjectInputStream ois = null;
+        ObjectInputStream ois;
         try {
             ois = new ObjectInputStream(new FileInputStream("Citas.txt"));
             citasList = (ArrayList) ois.readObject();

@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class calendarioPanel extends JPanel {
@@ -13,15 +12,15 @@ public class calendarioPanel extends JPanel {
     private JLabel botonIzq = new JLabel("<");
     private JLabel botonDer = new JLabel(">");
 
-    private JComboBox topMenu;
-    private ArrayList espeList = new ArrayList();
+    private JComboBox<especialista> topMenu;
+    private ArrayList<especialista> espeList = new ArrayList<>();
 
     public calendarioPanel(MainWindow mainWindow) {
         this.mainWindow =mainWindow;
         setLayout(new BorderLayout());
         espeList = personal.getPersonalList();
         topMenu = new JComboBox<especialista>();
-        for (Object esp: espeList){
+        for (especialista esp: espeList){
             topMenu.addItem(esp);
         }
         topPane.add(topMenu);
@@ -30,13 +29,25 @@ public class calendarioPanel extends JPanel {
 //        topPane.add(botonIzq);
 //        topPane.add(botonDer);
         add(topPane, BorderLayout.NORTH);
-        agendaPanel = new agendaPanel();
+        agendaPanel = new agendaPanel((especialista) topMenu.getSelectedItem());
         add(agendaPanel);
 
         nuevaCita.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 changeContent(new citasPanel(topMenu.getSelectedItem()));
+            }
+        });
+        topMenu.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                remove(agendaPanel);
+                repaint();
+                revalidate();
+                agendaPanel = new agendaPanel((especialista) topMenu.getSelectedItem());
+                add(agendaPanel);
+                repaint();
+                revalidate();
             }
         });
     }

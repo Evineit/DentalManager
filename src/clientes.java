@@ -30,7 +30,7 @@ public class clientes {
     }
 
     static void loadClientes() {
-        ObjectInputStream ois = null;
+        ObjectInputStream ois;
         try {
             ois = new ObjectInputStream(new FileInputStream("Clientes.txt"));
             arrayClientes = (ArrayList) ois.readObject();
