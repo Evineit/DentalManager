@@ -25,9 +25,9 @@ public class clientesPanel extends JPanel {
     JTextField clieLastName;
     JTextField cliePhone;
     JButton saveClie;
-
     JPanel clienteCitas;
     JPanel clientePagos;
+    JButton buttonCobro =new JButton("Efectuar Pago");
     public clientesPanel() {
         setLayout(new BorderLayout());
         topPanel = new JPanel();
@@ -56,13 +56,13 @@ public class clientesPanel extends JPanel {
         infoClientes.addTab("Pagos",clientePagos);
         botPanel.add(infoClientes);
         add(botPanel);
-        infoClientes.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                updateCitaCli();
-                updatePagosCli();
-            }
-        });
+//        infoClientes.addChangeListener(new ChangeListener() {
+//            @Override
+//            public void stateChanged(ChangeEvent e) {
+//                updateCitaCli();
+//                updatePagosCli();
+//            }
+//        });
         nClienteB.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -93,6 +93,17 @@ public class clientesPanel extends JPanel {
                 revalidate();
                 JOptionPane.showMessageDialog(null,"Se ha guardado el cliente","Informacion",JOptionPane.INFORMATION_MESSAGE
                 );
+            }
+        });
+        buttonCobro.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cliente clie = listModel.getPersona(selectList);
+                double money;
+                money = Double.parseDouble(JOptionPane.showInputDialog(null,"Ingrese cantidad por pagar","Pago",JOptionPane.QUESTION_MESSAGE));
+                clie.setCobrado(money+clie.getCobrado());
+                clientes.saveClientes();
+                updatePagosCli();
             }
         });
 
@@ -133,12 +144,13 @@ public class clientesPanel extends JPanel {
         clientePagos.removeAll();
         clientePagos.repaint();
         clientePagos.revalidate();
-        clientePagos.add(new JLabel("Adeudo: "+ clie.getAdeudo()));
-        clientePagos.add(new JLabel("Cobrado: "+ clie.getCobrado()));
+        clientePagos.add(new JLabel("Adeudo: "+ (clie.getAdeudo()-clie.getCobrado())));
+//        clientePagos.add(new JLabel("Cobrado: "+ clie.getCobrado()));
         if (clie.getAdeudo()>0){
-            clientePagos.add(new Button("Efectuar Pago"));
+            clientePagos.add(buttonCobro);
         }
         clientePagos.repaint();
         clientePagos.revalidate();
+
     }
 }

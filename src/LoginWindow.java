@@ -19,7 +19,7 @@ public class LoginWindow extends JFrame {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
         setContentPane(mainPanel);
-        login = new JButton("Iniciar Sesion");
+        login = new JButton("Iniciar Sesión");
         for (usuarios user: usuarios.getListUsers()){
             usersCombo.addItem(user);
         }

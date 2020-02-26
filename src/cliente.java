@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class cliente implements Serializable {
     private String name;
@@ -29,6 +30,14 @@ public class cliente implements Serializable {
     }
 
     public double getAdeudo() {
+        ArrayList<Cita> citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
+        citasList.removeIf(cita -> cita.getCliente().equals(this));
+        double due=0.0;
+        for (Cita cita :
+                citasList) {
+            due+=cita.getServicio().getPrice();
+        }
+        setAdeudo(due);
         return adeudo;
     }
 

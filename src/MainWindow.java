@@ -11,9 +11,7 @@ public class MainWindow extends JFrame {
 
     /*TODO Saber que clientes ha atendido cada uno (Panel de personal?)
     *Cuanto ha trabajado para reportes de ganancias
-    * Cobtros
-     * Abonos, liquidaciones
-     * Suelos?
+     * Sueldos?
      * Tratamientos largos?
     * */
     public MainWindow(String accType) {

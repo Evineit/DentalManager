@@ -65,6 +65,12 @@ public class leftPanel extends JPanel {
                 changeContent(new reportesPanel());
             }
         });
+        personalJL.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                changeContent(new PanelPersonal());
+            }
+        });
     }
 
     private void changeContent(JPanel content){
