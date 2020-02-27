@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class cliente implements Serializable {
     private String name;
@@ -31,7 +32,7 @@ public class cliente implements Serializable {
 
     public double getAdeudo() {
         ArrayList<Cita> citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
-        citasList.removeIf(cita -> cita.getCliente().equals(this));
+        citasList.removeIf(cita -> !cita.getCliente().equals(this));
         double due=0.0;
         for (Cita cita :
                 citasList) {
@@ -39,6 +40,20 @@ public class cliente implements Serializable {
         }
         setAdeudo(due);
         return adeudo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        cliente cliente = (cliente) o;
+        return getName().equals(cliente.getName()) &&
+                getLastname().equals(cliente.getLastname());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getLastname());
     }
 
     public void setAdeudo(double adeudo) {

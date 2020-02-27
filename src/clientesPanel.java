@@ -165,7 +165,7 @@ public class clientesPanel extends JPanel {
 
     }
     private void updatePagosCli(){
-        cliente clie = listModel.getPersona(selectList);
+        cliente clie = listModel.getPersona(listaClientes.getSelectedIndex());
         clientePagos.removeAll();
         clientePagos.repaint();
         clientePagos.revalidate();

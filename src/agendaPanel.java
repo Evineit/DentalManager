@@ -28,7 +28,7 @@ class CustomTableModel extends AbstractTableModel{
     }
     public CustomTableModel(cliente cliente) {
         citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
-        citasList.removeIf(cita -> cita.getCliente().equals(cliente));
+        citasList.removeIf(cita -> !cita.getCliente().equals(cliente));
     }
 
     @Override
