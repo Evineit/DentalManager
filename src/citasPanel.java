@@ -45,7 +45,9 @@ public class citasPanel extends JPanel {
     private JButton saveCita = new JButton("Guardar");
     private JButton cancelCita = new JButton("Cancelar");
 
-    public citasPanel(Object selectedItem) {
+    leftPanel leftPanel;
+    public citasPanel(Object selectedItem,leftPanel leftPanel) {
+        this.leftPanel=leftPanel;
         selecLimites = new GridBagConstraints();
         setLayout(new GridBagLayout());
 //        limites.gridheight = GridBagConstraints.RELATIVE;
@@ -192,6 +194,15 @@ public class citasPanel extends JPanel {
                 CitasList.saveCitas();
                 JOptionPane.showMessageDialog(null,"Cita añadida exitosamente.",
                         "Informacion",JOptionPane.INFORMATION_MESSAGE);
+                //TODO content changer
+                leftPanel.changeToHome();
+
+            }
+        });
+        cancelCita.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                leftPanel.changeToHome();
             }
         });
     }

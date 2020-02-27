@@ -170,7 +170,7 @@ public class clientesPanel extends JPanel {
         clientePagos.repaint();
         clientePagos.revalidate();
         clientePagos.add(new JLabel("Adeudo: "+ (clie.getAdeudo()-clie.getCobrado())));
-//        clientePagos.add(new JLabel("Cobrado: "+ clie.getCobrado()));
+        clientePagos.add(new JLabel("Cobrado: "+ clie.getCobrado()));
         if (clie.getAdeudo()>0){
             clientePagos.add(buttonCobro);
         }

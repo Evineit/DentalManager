@@ -1,9 +1,8 @@
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PanelPersonal extends JPanel {
     JList listaPersonal = new JList();
@@ -14,7 +13,7 @@ public class PanelPersonal extends JPanel {
     JPanel espeInfo;
     JTextField espeName;
     JTextField espeType;
-    JPanel espePagos;
+    JPanel espeReportes;
 
     public PanelPersonal() {
         setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
@@ -29,10 +28,10 @@ public class PanelPersonal extends JPanel {
         espeInfo.setLayout(new GridBagLayout());
         espeName = new JTextField();
         espeType = new JTextField();
-        espePagos=new JPanel();
+        espeReportes =new JPanel();
         infoPersonal.addTab("Información",espeInfo);
         //TODO PAGOS
-//        infoPersonal.addTab("Pagos",espePagos);
+        infoPersonal.addTab("Reportes", espeReportes);
         add(infoPersonal);
         listaPersonal.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -62,12 +61,23 @@ public class PanelPersonal extends JPanel {
                     limites.weightx=100;
                     limites.weighty=100;
                     espeInfo.add(new JLabel(""),limites);
+
+                    updateReportes(espe);
                     espeInfo.repaint();
-//                    updatePagosCli();
                 }
             }
         });
 
+
     }
-    //    JButton saveClie;
+
+    private void updateReportes(especialista espe) {
+        ArrayList<Cita> citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
+        citasList.removeIf(cita -> !cita.getProveedor().equals(espe));
+//        int numCitas;
+        espeReportes.removeAll();
+        espeReportes.repaint();
+        espeReportes.revalidate();
+        espeReportes.add(new JLabel("Numero de citas: "+ citasList.size()));
+    }
 }

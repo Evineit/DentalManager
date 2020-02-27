@@ -14,8 +14,9 @@ public class calendarioPanel extends JPanel {
 
     private JComboBox<especialista> topMenu;
     private ArrayList<especialista> espeList = new ArrayList<>();
-
-    public calendarioPanel(MainWindow mainWindow) {
+    private leftPanel leftPanel;
+    public calendarioPanel(MainWindow mainWindow,leftPanel leftPanel) {
+        this.leftPanel=leftPanel;
         this.mainWindow =mainWindow;
         setLayout(new BorderLayout());
         espeList = personal.getPersonalList();
@@ -35,7 +36,7 @@ public class calendarioPanel extends JPanel {
         nuevaCita.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                changeContent(new citasPanel(topMenu.getSelectedItem()));
+                changeContent(new citasPanel(topMenu.getSelectedItem(),leftPanel));
             }
         });
         topMenu.addItemListener(new ItemListener() {
