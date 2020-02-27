@@ -17,6 +17,7 @@ public class Cita  implements Serializable {
         this.proveedor = proveedor;
     }
 
+
     public cliente getCliente() {
         return cliente;
     }

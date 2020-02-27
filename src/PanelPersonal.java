@@ -13,6 +13,9 @@ public class PanelPersonal extends JPanel {
     JPanel espeInfo;
     JTextField espeName;
     JTextField espeType;
+    JTextField espeSalary;
+    JTextField espePhone;
+    JTextField espeDireccion;
     JPanel espeReportes;
 
     public PanelPersonal() {
@@ -28,9 +31,15 @@ public class PanelPersonal extends JPanel {
         espeInfo.setLayout(new GridBagLayout());
         espeName = new JTextField();
         espeType = new JTextField();
+        espeSalary = new JTextField();
+        espePhone = new JTextField();
+        espeDireccion = new JTextField();
         espeReportes =new JPanel();
         infoPersonal.addTab("Información",espeInfo);
         //TODO PAGOS
+        //TODO Añadir el uso del salario
+        //TODO Mostrar en los reportes
+
         infoPersonal.addTab("Reportes", espeReportes);
         add(infoPersonal);
         listaPersonal.addListSelectionListener(new ListSelectionListener() {
@@ -58,6 +67,18 @@ public class PanelPersonal extends JPanel {
                     espeType.setText(espe.getEspecialidad());
                     espeType.setEditable(false);
                     espeInfo.add(espeType,limites);
+                    espeInfo.add(new JLabel("Sueldo: "),limites);
+                    espeSalary.setEditable(false);
+                    espeSalary.setText(String.valueOf(espe.getSalario()));
+                    espeInfo.add(espeSalary,limites);
+                    espeInfo.add(new JLabel("Telefono:"),limites);
+                    espePhone.setEditable(false);
+                    espePhone.setText(espe.getPhone());
+                    espeInfo.add(espePhone,limites);
+                    espeInfo.add(new JLabel("Direccion:"),limites);
+                    espeDireccion.setEditable(false);
+                    espeDireccion.setText(espe.getDireccion());
+                    espeInfo.add(espeDireccion,limites);
                     limites.weightx=100;
                     limites.weighty=100;
                     espeInfo.add(new JLabel(""),limites);

@@ -35,6 +35,7 @@ public class reportesPanel extends JPanel {
         citasList.removeIf(cita -> !(cita.getFecha().getMonth().equals(Month)));
         final Double[] gananciasActual = {0.0};
         final Double[] gananciasPrev={0.0};
+        //TODO Validar ingreso de calendario
         citasList.forEach(cita -> gananciasActual[0] +=cita.getServicio().getPrice());
         citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
         citasList.removeIf(cita -> !(cita.getFecha().getMonth().equals(Month.minus(1))));

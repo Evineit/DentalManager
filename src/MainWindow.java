@@ -10,6 +10,7 @@ public class MainWindow extends JFrame {
     private GridBagConstraints rightLimit;
     private String accType;
 
+    //todo Valida todo GRACIAS
     /*TODO Saber que clientes ha atendido cada uno (Panel de personal?)
     *Cuanto ha trabajado para reportes de ganancias
      * Sueldos?

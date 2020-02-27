@@ -185,6 +185,7 @@ public class citasPanel extends JPanel {
         saveCita.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                //TODO Validar ingrso de calendario
                 fecha = datePicker.getDate();
                 horaInicio = timePicker.getTime();
                 Cita cita = new Cita(fecha,horaInicio,(Servicio) comboServicio.getSelectedItem(),

@@ -7,9 +7,12 @@ public class personal implements Serializable {
 
     public static ArrayList<especialista> getPersonalList() {
         if (personalList.size()==0){
-            personalList.add(new especialista("Pedro","Maxilofacial"));
-            personalList.add(new especialista("Pedro","Ortodoncista"));
-            personalList.add(new especialista("Pedro","Endodoncista"));
+//            personalList.add(new especialista("Pedro","Maxilofacial"));
+//            personalList.add(new especialista("Pedro","Ortodoncista"));
+//            personalList.add(new especialista("Pedro","Endodoncista"));
+            personalList.add(new especialista("Pedro","Maxilofacial",12000.0,"618320000","Direccion generica No. 155 Av. Sion"));
+            personalList.add(new especialista("Pedro","Ortodoncista",12000.0,"618320000","Direccion generica No. 155 Av. Sion"));
+            personalList.add(new especialista("Pedro","Endodoncista",12000.0,"618320000","Direccion generica No. 155 Av. Sion"));
         }
         return personalList;
     }
@@ -21,10 +24,46 @@ public class personal implements Serializable {
 class especialista implements Serializable{
     private String name;
     private String especialidad;
+    private double salario;
+    private String phone;
+    private String direccion;
+
 
     public especialista(String name, String especialidad) {
         this.name = name;
         this.especialidad = especialidad;
+    }
+
+    public especialista(String name, String especialidad, double salario, String phone, String direccion) {
+        this.name = name;
+        this.especialidad = especialidad;
+        this.salario = salario;
+        this.phone = phone;
+        this.direccion = direccion;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     @Override

@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -85,6 +87,14 @@ public class LoginWindow extends JFrame {
                 login.setForeground(Color.black);
             }
         });
+//        login.addKeyListener(new KeyAdapter() {
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                if (equals()){
+//
+//                }
+//            }
+//        });
 //        usersCombo.requestFocusInWindow();
         setTitle("Iniciar Sesión");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -14,6 +14,7 @@ public class agendaPanel extends JPanel {
         model = new CustomTableModel(espec);
         tabla = new JTable(model);
         tabla.setDragEnabled(false);
+        tabla.getTableHeader().setReorderingAllowed(false);
         scrollAgenda = new JScrollPane(tabla);
         add(scrollAgenda);
     }
@@ -34,9 +35,10 @@ class CustomTableModel extends AbstractTableModel{
     @Override
     public String getColumnName(int column) {
         switch (column) {
-            case 0: return "Fecha";
-            case 1: return "Hora";
-            case 2: return "Servicio";
+            case 0: return "Cliente";
+            case 1: return "Fecha";
+            case 2: return "Hora";
+            case 3: return "Servicio";
         }
         return null;
     }
@@ -48,16 +50,17 @@ class CustomTableModel extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Cita cita = citasList.get(rowIndex);
         switch (columnIndex) {
-            case 0: return cita.getFecha();
-            case 1: return cita.getHora();
-            case 2: return cita.getServicio();
+            case 0: return cita.getCliente().getName();
+            case 1: return cita.getFecha();
+            case 2: return cita.getHora();
+            case 3: return cita.getServicio();
         }
         return null;
     }
