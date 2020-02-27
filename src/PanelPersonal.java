@@ -18,6 +18,7 @@ public class PanelPersonal extends JPanel {
 
     public PanelPersonal() {
         setLayout(new BoxLayout(this,BoxLayout.X_AXIS));
+        GridBagConstraints limites = new GridBagConstraints();
         listaPersonal.setModel(listModel);
         JScrollPane JScroll = new JScrollPane(listaPersonal);
         JScroll.setMinimumSize(new Dimension(100,100));
@@ -25,12 +26,13 @@ public class PanelPersonal extends JPanel {
         add(JScroll);
         infoPersonal = new JTabbedPane();
         espeInfo = new JPanel();
-        espeInfo.setLayout(new BoxLayout(espeInfo,BoxLayout.Y_AXIS));
+        espeInfo.setLayout(new GridBagLayout());
         espeName = new JTextField();
         espeType = new JTextField();
         espePagos=new JPanel();
         infoPersonal.addTab("Información",espeInfo);
-        infoPersonal.addTab("Pagos",espePagos);
+        //TODO PAGOS
+//        infoPersonal.addTab("Pagos",espePagos);
         add(infoPersonal);
         listaPersonal.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -38,17 +40,28 @@ public class PanelPersonal extends JPanel {
                 selectList = listaPersonal.getSelectedIndex();
                 if (selectList!=-1){
                     especialista espe = listModel.getPersona(selectList);
+                    limites.anchor = GridBagConstraints.NORTH;
+                    limites.fill = GridBagConstraints.HORIZONTAL;
+                    limites.ipadx=30;
+                    limites.weighty=0;
+                    limites.weightx=1;
+                    limites.gridheight=1;
+                    limites.gridx=0;
+                    limites.insets = new Insets(10,10,10,10);
                     espeInfo.removeAll();
                     espeInfo.repaint();
                     espeInfo.revalidate();
-                    espeInfo.add(new JLabel("Nombre:"));
+                    espeInfo.add(new JLabel("Nombre:"),limites);
                     espeName.setText(espe.getName());
                     espeName.setEditable(false);
-                    espeInfo.add(espeName);
-                    espeInfo.add(new JLabel("Especialidad:"));
+                    espeInfo.add(espeName,limites);
+                    espeInfo.add(new JLabel("Especialidad:"),limites);
                     espeType.setText(espe.getEspecialidad());
                     espeType.setEditable(false);
-                    espeInfo.add(espeType);
+                    espeInfo.add(espeType,limites);
+                    limites.weightx=100;
+                    limites.weighty=100;
+                    espeInfo.add(new JLabel(""),limites);
                     espeInfo.repaint();
 //                    updatePagosCli();
                 }

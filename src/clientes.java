@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class clientes {
-    private static ArrayList arrayClientes = new ArrayList();
+    private static ArrayList<cliente> arrayClientes = new ArrayList();
 
     public static ArrayList getArrayClientes() {
         if (arrayClientes.size() == 0) {

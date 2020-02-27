@@ -46,7 +46,8 @@ public class leftPanel extends JPanel {
         add(calendarioJL);
         add(clientesJL);
         if (accType.equals("Administrador")){
-            add(reportesJL);
+            //TODO Reportes
+//            add(reportesJL);
             add(personalJL);
         }
 

@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
@@ -10,7 +11,9 @@ import com.github.lgooddatepicker.components.TimePicker;
 
 
 public class citasPanel extends JPanel {
-    private JLabel nCita = new JLabel("Nueva cita");
+    private GridBagConstraints selecLimites;
+    private GridBagConstraints citasLimite;
+    private JLabel nCita = new JLabel("Nueva cita - Seleccione cliente");
     private JLabel labelSrchCliente = new JLabel("Clientes");
     private JTextField fieldSrchCliente = new JTextField("Buscar cliente");
     private JLabel labelnCliente = new JLabel("Nuevo cliente");
@@ -43,16 +46,29 @@ public class citasPanel extends JPanel {
     private JButton cancelCita = new JButton("Cancelar");
 
     public citasPanel(Object selectedItem) {
-        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        add(nCita);
+        selecLimites = new GridBagConstraints();
+        setLayout(new GridBagLayout());
+//        limites.gridheight = GridBagConstraints.RELATIVE;
+        selecLimites.fill=GridBagConstraints.BOTH;
+        selecLimites.weighty=0;
+        selecLimites.weightx=0;
+        selecLimites.gridy =0;
+        selecLimites.insets = new Insets(10,10,10,10);
+        add(nCita, selecLimites);
 //        add(labelSrchCliente);
 //        fieldSrchCliente.setMaximumSize(new Dimension(100,30));
 //        add(fieldSrchCliente);
 //        add(labelnCliente);
         listClientes.setModel(listModel);
         ScrollList = new JScrollPane(listClientes);
-        add(ScrollList);
-        add(selecCliente);
+        selecLimites.gridy++;
+        selecLimites.weighty=1;
+        selecLimites.weightx=1;
+        add(ScrollList, selecLimites);
+        selecLimites.gridy++;
+        selecLimites.weighty=0;
+        selecLimites.weightx=0;
+        add(selecCliente, selecLimites);
 
         labelServicio = new JLabel("Seleccione un servicio");
         comboServicio = new JComboBox<Servicio>();
@@ -92,21 +108,45 @@ public class citasPanel extends JPanel {
                     removeAll();
                     repaint();
                     revalidate();
-                    add(nCita);
-                    add(labelServicio);
-                    add(comboServicio);
-                    add(labelProvider);
-                    add(comboProvider);
-                    add(labelFecha);
+                    citasLimite = new GridBagConstraints();
+                    citasLimite.ipadx=50;
+                    citasLimite.insets= new Insets(10,10,10,10);
+                    citasLimite.gridx=0;
+                    citasLimite.gridy=GridBagConstraints.RELATIVE;
+                    citasLimite.fill=GridBagConstraints.HORIZONTAL;
+                    citasLimite.gridwidth = 2;
+                    cliente clie = (cliente) clientes.getArrayClientes().get(listClientes.getSelectedIndex());
+                    nCita.setText("Cliente seleccionado: "+clie.getFullName());
+                    add(nCita,citasLimite);
+                    add(labelServicio,citasLimite);
+                    comboServicio.setRenderer(new DefaultListCellRenderer(){
+                        @Override
+                        public void setHorizontalAlignment(int alignment) {
+                            super.setHorizontalAlignment(CENTER);
+                        }
+                    });
+                    add(comboServicio,citasLimite);
+                    add(labelProvider,citasLimite);
+                    comboProvider.setRenderer(new DefaultListCellRenderer(){
+                        @Override
+                        public void setHorizontalAlignment(int alignment) {
+                            super.setHorizontalAlignment(CENTER);
+                        }
+                    });
+                    add(comboProvider,citasLimite);
+                    add(labelFecha,citasLimite);
                     datePicker = new DatePicker();
-                    add(datePicker);
-                    add(labelInicio);
+                    add(datePicker,citasLimite);
+                    add(labelInicio,citasLimite);
                     timePicker = new TimePicker();
-                    add(timePicker);
+                    add(timePicker,citasLimite);
 //                add(labelRepe);
 //                add(boolRepe);
-                    add(saveCita);
-                    add(cancelCita);
+                    citasLimite.gridwidth=1;
+                    add(saveCita,citasLimite);
+                    citasLimite.gridx=1;
+                    citasLimite.gridy=9;
+                    add(cancelCita,citasLimite);
                 }else {
                     JOptionPane.showMessageDialog(null,"Seleccione un usuario","Informacion",JOptionPane.INFORMATION_MESSAGE);
                 }
