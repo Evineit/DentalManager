@@ -15,21 +15,53 @@ public class LoginWindow extends JFrame {
     }
 
     private void iniciarLogin() {
-        setMinimumSize(new Dimension(400,600));
+        setMinimumSize(new Dimension(800,600));
+        getContentPane().setBackground(Color.decode("#5689C2"));
+        setLayout(new GridBagLayout());
+        GridBagConstraints mainLimites = new GridBagConstraints();
+        mainLimites.fill= GridBagConstraints.VERTICAL;
+        mainLimites.weighty=100;
         mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
-        setContentPane(mainPanel);
+        mainPanel.setLayout(new GridBagLayout());
+        mainPanel.setOpaque(true);
+        mainPanel.setBackground(Color.WHITE);
+        GridBagConstraints limites = new GridBagConstraints();
+        limites.fill = GridBagConstraints.HORIZONTAL;
+        limites.insets = new Insets(10,70,10,70);
+        limites.ipadx = 60;
+//        setContentPane(mainPanel);
+        add(mainPanel,mainLimites);
         login = new JButton("Iniciar Sesión");
+        login.setFont(new Font("Segoe UI",Font.BOLD,18));
+        login.setBackground(Color.white);
+        JLabel usuario = new JLabel("Usuario");
+        usuario.setFont(new Font("Segoe UI",Font.PLAIN,18));
         for (usuarios user: usuarios.getListUsers()){
             usersCombo.addItem(user);
         }
-        passLabel = new JLabel("Contraseña");
-        passField = new JPasswordField();
 
-        mainPanel.add(usersCombo);
-        mainPanel.add(passLabel);
-        mainPanel.add(passField);
-        mainPanel.add(login);
+        usersCombo.setBackground(Color.white);
+        usersCombo.setRenderer(new DefaultListCellRenderer(){
+            @Override
+            public void paint(Graphics g) {
+                setBackground(Color.WHITE);
+                setForeground(Color.BLACK);
+                super.paint(g);
+            }
+        });
+        passLabel = new JLabel("Contraseña");
+        passLabel.setFont(new Font("Segoe UI",Font.PLAIN,18));
+        passField = new JPasswordField();
+        passField.requestFocus();
+        mainPanel.add(usuario,limites);
+        limites.gridy=1;
+        mainPanel.add(usersCombo,limites);
+        limites.gridy=2;
+        mainPanel.add(passLabel,limites);
+        limites.gridy=3;
+        mainPanel.add(passField,limites);
+        limites.gridy=4;
+        mainPanel.add(login,limites);
 
         login.addMouseListener(new MouseAdapter() {
             @Override
@@ -40,9 +72,24 @@ public class LoginWindow extends JFrame {
                 }
             }
         });
+        login.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                login.setBackground(Color.decode("#5689C2"));
+                login.setForeground(Color.white);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                login.setBackground(Color.white);
+                login.setForeground(Color.black);
+            }
+        });
+//        usersCombo.requestFocusInWindow();
         setTitle("Iniciar Sesión");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
+
     public void iniciar(){
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -51,6 +98,7 @@ public class LoginWindow extends JFrame {
         } catch (Throwable ignoreAndContinue) {
         }
         setVisible(true);
+        passField.requestFocusInWindow();
 
     }
     public void validarLogin(){

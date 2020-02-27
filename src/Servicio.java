@@ -11,7 +11,7 @@ public class Servicio implements Serializable {
 
     @Override
     public String toString() {
-        return name + " - "+price;
+        return name + " - "+price +" $";
     }
 
     public String getName() {

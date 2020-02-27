@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class calendarioPanel extends JPanel {
     private MainWindow mainWindow;
-    private JPanel topPane = new JPanel();
+    private JPanel topPane = new JPanel(new FlowLayout(FlowLayout.LEFT));
     private agendaPanel agendaPanel;
     private JButton nuevaCita = new JButton("Nueva cita");
     private JLabel fecha = new JLabel("FEB 20 - FEB 30");

@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public class agendaPanel extends JPanel {
         setLayout(new BorderLayout());
         model = new CustomTableModel(espec);
         tabla = new JTable(model);
+        tabla.setDragEnabled(false);
         scrollAgenda = new JScrollPane(tabla);
         add(scrollAgenda);
     }
