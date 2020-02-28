@@ -1,9 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class LoginWindow extends JFrame {
     private JPanel mainPanel;
@@ -17,6 +14,8 @@ public class LoginWindow extends JFrame {
     }
 
     private void iniciarLogin() {
+        Image icon = new ImageIcon("src/Resource/dental-ico2.png").getImage();
+        setIconImage(icon);
         setMinimumSize(new Dimension(800,600));
         getContentPane().setBackground(Color.decode("#5689C2"));
         setLayout(new GridBagLayout());
@@ -87,14 +86,15 @@ public class LoginWindow extends JFrame {
                 login.setForeground(Color.black);
             }
         });
-//        login.addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                if (equals()){
-//
-//                }
-//            }
-//        });
+        passField.addActionListener(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    validarLogin();
+                }catch (Exception error){
+                }
+            }
+        });
 //        usersCombo.requestFocusInWindow();
         setTitle("Iniciar Sesión");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
