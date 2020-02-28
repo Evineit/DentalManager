@@ -14,6 +14,8 @@ public class LoginWindow extends JFrame {
     }
 
     private void iniciarLogin() {
+//        Font oldLabelFont = UIManager.getFont("Label.font");
+//        UIManager.put("Label.font", new Font("Segoe UI",Font.BOLD,14));
         Image icon = new ImageIcon("src/Resource/dental-ico2.png").getImage();
         setIconImage(icon);
         setMinimumSize(new Dimension(800,600));
@@ -36,7 +38,7 @@ public class LoginWindow extends JFrame {
         login.setFont(new Font("Segoe UI",Font.BOLD,18));
         login.setBackground(Color.white);
         JLabel usuario = new JLabel("Usuario");
-        usuario.setFont(new Font("Segoe UI",Font.PLAIN,18));
+        usuario.setFont(new Font("Segoe UI Semibold",Font.PLAIN,18));
         for (usuarios user: usuarios.getListUsers()){
             usersCombo.addItem(user);
         }
@@ -51,7 +53,7 @@ public class LoginWindow extends JFrame {
             }
         });
         passLabel = new JLabel("Contraseña");
-        passLabel.setFont(new Font("Segoe UI",Font.PLAIN,18));
+        passLabel.setFont(new Font("Segoe UI Semibold",Font.PLAIN,18));
         passField = new JPasswordField();
         passField.requestFocus();
         mainPanel.add(usuario,limites);
@@ -107,6 +109,7 @@ public class LoginWindow extends JFrame {
             this.setLocationByPlatform(true);
         } catch (Throwable ignoreAndContinue) {
         }
+        setLocationRelativeTo(null);
         setVisible(true);
         passField.requestFocusInWindow();
 

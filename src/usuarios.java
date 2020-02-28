@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class usuarios {
-    private static ArrayList<usuarios> listUsers= new ArrayList<usuarios>(Arrays.asList(new usuarios("Administrador","1234"),new usuarios("Secretaria","4321")));
+    private static ArrayList<usuarios> listUsers= new ArrayList<usuarios>(Arrays.asList(new usuarios("Secretaria","4321"),new usuarios("Administrador","1234")));
     private String accType;
     private String password;
 

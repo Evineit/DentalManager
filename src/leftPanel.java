@@ -48,7 +48,6 @@ public class leftPanel extends JPanel {
         add(calendarioJL);
         add(clientesJL);
         if (accType.equals("Administrador")){
-            //TODO Reportes
             add(reportesJL);
             add(personalJL);
         }
@@ -56,7 +55,7 @@ public class leftPanel extends JPanel {
         inicioJL.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                mainWindow.getContentPanel().removeAll();
+                changeContent(new ContentPanel());
                 resetFonts();
                 inicioJL.setFont(new Font("Segoe UI Semibold",Font.PLAIN,24));
                 mainWindow.getContentPanel().repaint();
@@ -103,6 +102,11 @@ public class leftPanel extends JPanel {
         mainWindow.getContentPanel().repaint();
         mainWindow.getContentPanel().revalidate();
     }
+    public void changeToCalendar(){
+        changeContent(new calendarioPanel(mainWindow,myself));
+        resetFonts();
+        calendarioJL.setFont(new Font("Segoe UI Semibold",Font.PLAIN,24));
+    }
 
     private void changeContent(JPanel content){
         mainWindow.remove(mainWindow.getContentPanel());
@@ -110,7 +114,7 @@ public class leftPanel extends JPanel {
         mainWindow.revalidate();
         mainWindow.addContent(content);
         mainWindow.repaint();
-        mainWindow.pack();
+//        mainWindow.pack();
         mainWindow.revalidate();
     }
     private void resetFonts(){

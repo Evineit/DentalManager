@@ -1,20 +1,32 @@
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.*;
 import java.awt.*;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 
 public class agendaPanel extends JPanel {
     JScrollPane scrollAgenda;
     JTable tabla;
     CustomTableModel model;
-    //Todo cuando sales de la crecion de cita que regreses al calendario no al inicio
     public agendaPanel(especialista espec) {
         setLayout(new BorderLayout());
-        model = new CustomTableModel(espec);
+        LocalDate now = LocalDate.now();
+        model = new CustomTableModel(espec,now);
         tabla = new JTable(model);
         tabla.setDragEnabled(false);
         tabla.getTableHeader().setReorderingAllowed(false);
+        model.resizeColumnWidth(tabla);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        tabla.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        tabla.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tabla.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        tabla.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        tabla.setAutoCreateRowSorter(true);
+//        TableRowSorter sorter = new TableRowSorter(model);
+//        tabla.setRowSorter(sorter);
+//        sorter.sort();
         scrollAgenda = new JScrollPane(tabla);
         add(scrollAgenda);
     }
@@ -27,9 +39,28 @@ class CustomTableModel extends AbstractTableModel{
         citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
         citasList.removeIf(cita -> !cita.getProveedor().equals(especialista));
     }
+    public CustomTableModel(especialista especialista, LocalDate date) {
+        citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
+        citasList.removeIf(cita -> !cita.getProveedor().equals(especialista));
+        citasList.removeIf(cita -> cita.getFecha().isBefore(date));
+    }
     public CustomTableModel(cliente cliente) {
         citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
         citasList.removeIf(cita -> !cita.getCliente().equals(cliente));
+    }
+    public void resizeColumnWidth(JTable table) {
+        final TableColumnModel columnModel = table.getColumnModel();
+        for (int column = 0; column < table.getColumnCount(); column++) {
+            int width = 15;
+            for (int row = 0; row < table.getRowCount(); row++) {
+                TableCellRenderer renderer = table.getCellRenderer(row, column);
+                Component comp = table.prepareRenderer(renderer, row, column);
+                width = Math.max(comp.getPreferredSize().width +1 , width);
+            }
+            if(width > 300)
+                width=300;
+            columnModel.getColumn(column).setPreferredWidth(width);
+        }
     }
 
     @Override

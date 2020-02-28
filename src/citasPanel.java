@@ -214,14 +214,14 @@ public class citasPanel extends JPanel {
                 CitasList.saveCitas();
                 JOptionPane.showMessageDialog(null,"Cita añadida exitosamente.",
                         "Informacion",JOptionPane.INFORMATION_MESSAGE);
-                leftPanel.changeToHome();
+                leftPanel.changeToCalendar();
 
             }
         });
         cancelCita.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                leftPanel.changeToHome();
+                leftPanel.changeToCalendar();
             }
         });
     }

@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.Month;
 import java.util.ArrayList;
 
 public class CitasList {
@@ -15,7 +16,11 @@ public class CitasList {
         }
         return citasList;
     }
-
+    public static ArrayList<Cita> getCitasInMonth(Month month){
+        ArrayList<Cita> citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
+        citasList.removeIf(cita -> !(cita.getFecha().getMonth().equals(month)));
+        return (ArrayList<Cita>) citasList.clone();
+    }
     public void setcitasList(ArrayList array) {
         citasList = array;
     }

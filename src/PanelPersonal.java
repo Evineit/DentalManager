@@ -36,11 +36,7 @@ public class PanelPersonal extends JPanel {
         espeDireccion = new JTextField();
         espeReportes =new JPanel();
         infoPersonal.addTab("Información",espeInfo);
-        //TODO PAGOS
-        //TODO Añadir el uso del salario
-        //TODO Mostrar en los reportes
-
-        infoPersonal.addTab("Reportes", espeReportes);
+//        infoPersonal.addTab("Reportes", espeReportes);
         add(infoPersonal);
         listaPersonal.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -100,5 +96,6 @@ public class PanelPersonal extends JPanel {
         espeReportes.repaint();
         espeReportes.revalidate();
         espeReportes.add(new JLabel("Numero de citas: "+ citasList.size()));
+
     }
 }

@@ -38,7 +38,7 @@ public class cliente implements Serializable {
                 citasList) {
             due+=cita.getServicio().getPrice();
         }
-        setAdeudo(due);
+        setAdeudo(due-getCobrado());
         return adeudo;
     }
 

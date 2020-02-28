@@ -11,11 +11,6 @@ public class MainWindow extends JFrame {
     private String accType;
 
     //todo Valida todo GRACIAS
-    /*TODO Saber que clientes ha atendido cada uno (Panel de personal?)
-    *Cuanto ha trabajado para reportes de ganancias
-     * Sueldos?
-     * Tratamientos largos?
-    * */
     public MainWindow(String accType) {
         this.accType = accType;
         iniciarUI();
@@ -45,7 +40,6 @@ public class MainWindow extends JFrame {
         leftPanel = new leftPanel(this,accType);
         mainPanel.add(leftPanel,leftLimit);
         contentPanel = new ContentPanel();
-
         addContent(contentPanel);
         setTitle("Consultorio dental");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

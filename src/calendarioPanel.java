@@ -27,6 +27,7 @@ public class calendarioPanel extends JPanel {
         topPane.add(new JLabel("Citas del especialista: "));
         topPane.add(topMenu);
         topPane.add(nuevaCita);
+        topPane.add(new ClockLabel());
 //        topPane.add(fecha);
 //        topPane.add(botonIzq);
 //        topPane.add(botonDer);

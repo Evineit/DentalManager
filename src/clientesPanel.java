@@ -3,9 +3,13 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.regex.Pattern;
 
 public class clientesPanel extends JPanel {
@@ -74,7 +78,7 @@ public class clientesPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 listModel.addCliente(new cliente("Nuevo","Cliente","618-000-0000"));
-                listaClientes.setSelectedIndex(0);
+                listaClientes.setSelectedIndex(listModel.getSize()-1);
             }
         });
         listaClientes.addListSelectionListener(new ListSelectionListener() {
@@ -124,8 +128,18 @@ public class clientesPanel extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 cliente clie = listModel.getPersona(selectList);
-                double money;
-                money = Double.parseDouble(JOptionPane.showInputDialog(null,"Ingrese cantidad por pagar","Pago",JOptionPane.QUESTION_MESSAGE));
+                double money=0;
+                try {
+                    money = Double.parseDouble(JOptionPane.showInputDialog(null,"Ingrese cantidad por pagar","Pago",JOptionPane.QUESTION_MESSAGE));
+                }catch (Exception error){
+                    error.printStackTrace();
+                    JOptionPane.showMessageDialog(null,"Ingresa un monto valido","Error de monto",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if (money>clie.getAdeudo()){
+                    JOptionPane.showMessageDialog(null,"El monto es mayor que el adeudo del cliente","Error de monto",JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 clie.setCobrado(money+clie.getCobrado());
                 clientes.saveClientes();
                 updatePagosCli();
@@ -178,6 +192,17 @@ public class clientesPanel extends JPanel {
         clienteCitas.revalidate();
         model = new CustomTableModel(clie);
         tablaCitas = new JTable(model);
+        tablaCitas.setDragEnabled(false);
+        tablaCitas.getTableHeader().setReorderingAllowed(false);
+        tablaCitas.removeColumn(tablaCitas.getColumn("Cliente"));
+        model.resizeColumnWidth(tablaCitas);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        tablaCitas.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        tablaCitas.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        tablaCitas.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+//        tablaCitas.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+
         citasScroll = new JScrollPane(tablaCitas);
         clienteCitas.add(citasScroll);
         clienteCitas.repaint();
@@ -189,11 +214,23 @@ public class clientesPanel extends JPanel {
         clientePagos.removeAll();
         clientePagos.repaint();
         clientePagos.revalidate();
-        clientePagos.add(new JLabel("Adeudo: "+ (clie.getAdeudo()-clie.getCobrado())));
-        clientePagos.add(new JLabel("Cobrado: "+ clie.getCobrado()));
+        clientePagos.setLayout(new GridBagLayout());
+        GridBagConstraints limites = new GridBagConstraints();
+        limites.gridx=0;
+        limites.fill = GridBagConstraints.HORIZONTAL;
+        limites.ipadx=30;
+        limites.weighty=0;
+        limites.weightx=0;
+        limites.gridheight=1;
+        limites.insets = new Insets(10,10,10,10);
+
+        clientePagos.add(new JLabel("Adeudo: "+ clie.getAdeudo()),limites);
+//        clientePagos.add(new JLabel("Cobrado: "+ clie.getCobrado()));
         if (clie.getAdeudo()>0){
-            clientePagos.add(buttonCobro);
+            clientePagos.add(buttonCobro,limites);
         }
+        limites.weighty=1;
+        clientePagos.add(new JLabel(""),limites);
         clientePagos.repaint();
         clientePagos.revalidate();
 

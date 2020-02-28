@@ -22,26 +22,27 @@ public class reportesPanel extends JPanel {
         limites.ipadx=30;
         limites.gridx=0;
         limites.fill=GridBagConstraints.HORIZONTAL;
-        limites.insets = new Insets(10,10,10,10);
+        limites.insets = new Insets(30,10,10,30);
         Calendar cal = Calendar.getInstance();
 //        Month = cal.get(Calendar.MONTH);
         Month = LocalDate.now().getMonth();
-        labelMonth = new JLabel(monthName[cal.get(Calendar.MONTH)]);
+        labelMonth = new JLabel(monthName[cal.get(Calendar.MONTH)],SwingConstants.CENTER);
+        labelMonth.setFont(labelMonth.getFont().deriveFont(16f));
+        limites.gridwidth=2;
         add(labelMonth, limites);
+        limites.gridwidth=1;
 //        repoLista = new JList();
 //        add(repoLista);
-
-        ArrayList<Cita> citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
-        citasList.removeIf(cita -> !(cita.getFecha().getMonth().equals(Month)));
         final Double[] gananciasActual = {0.0};
         final Double[] gananciasPrev={0.0};
-        //TODO Validar ingreso de calendario
+        ArrayList<Cita> citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
+        citasList.removeIf(cita -> !(cita.getFecha().getMonth().equals(Month)));
         citasList.forEach(cita -> gananciasActual[0] +=cita.getServicio().getPrice());
         citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
         citasList.removeIf(cita -> !(cita.getFecha().getMonth().equals(Month.minus(1))));
         citasList.forEach(cita -> gananciasPrev[0] +=cita.getServicio().getPrice());
-        add(new JLabel("Ganancias mes actual "),limites);
         add(new JLabel("Ganancias mes previo "),limites);
+        add(new JLabel("Ganancias mes actual "),limites);
         Double cambioNeto = gananciasActual[0]-gananciasPrev[0];
         JLabel labelCambioTexto = new JLabel("Cambio neto ");
         JLabel labelCambio =new JLabel(cambioNeto.toString());
@@ -51,12 +52,16 @@ public class reportesPanel extends JPanel {
             labelCambio.setForeground(Color.green);
         }
         add(labelCambioTexto,limites);
+        add(new JLabel("Citas atendidas este mes:"),limites);
         limites.gridx=1;
         limites.gridy=1;
-        add(new JLabel(gananciasActual[0].toString()),limites);
-        limites.gridy=GridBagConstraints.RELATIVE;
         add(new JLabel(gananciasPrev[0].toString()),limites);
+        limites.gridy=GridBagConstraints.RELATIVE;
+        add(new JLabel(gananciasActual[0].toString()),limites);
         add(labelCambio,limites);
+        citasList=CitasList.getCitasInMonth(Month);
+        add(new JLabel(String.valueOf(citasList.size())),limites);
+
 //        limites.weightx=1;
         limites.weighty=1;
         limites.gridy=5;
