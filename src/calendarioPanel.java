@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.Clock;
 import java.util.ArrayList;
 
 public class calendarioPanel extends JPanel {
@@ -8,9 +9,9 @@ public class calendarioPanel extends JPanel {
     private JPanel topPane = new JPanel(new FlowLayout(FlowLayout.LEFT));
     private agendaPanel agendaPanel;
     private JButton nuevaCita = new JButton("Nueva cita");
-    private JLabel fecha = new JLabel("FEB 20 - FEB 30");
-    private JLabel botonIzq = new JLabel("<");
-    private JLabel botonDer = new JLabel(">");
+//    private JLabel fecha = new JLabel("FEB 20 - FEB 30");
+//    private JLabel botonIzq = new JLabel("<");
+//    private JLabel botonDer = new JLabel(">");
 
     private JComboBox<especialista> topMenu;
     private ArrayList<especialista> espeList = new ArrayList<>();
@@ -24,10 +25,14 @@ public class calendarioPanel extends JPanel {
         for (especialista esp: espeList){
             topMenu.addItem(esp);
         }
+        topPane.setLayout(new BoxLayout(topPane,BoxLayout.X_AXIS));
         topPane.add(new JLabel("Citas del especialista: "));
         topPane.add(topMenu);
         topPane.add(nuevaCita);
-        topPane.add(new ClockLabel());
+        ClockLabel clock = new ClockLabel();
+//        clock.setPreferredSize(new Dimension((int)clock.getPreferredSize().getWidth()+120,(int)clock.getPreferredSize().getHeight()));
+        topPane.add(clock);
+
 //        topPane.add(fecha);
 //        topPane.add(botonIzq);
 //        topPane.add(botonDer);
@@ -53,6 +58,7 @@ public class calendarioPanel extends JPanel {
                 revalidate();
             }
         });
+//        System.out.println(topPane.getPreferredSize().toString());
     }
     private void changeContent(JPanel content){
         mainWindow.remove(mainWindow.getContentPanel());

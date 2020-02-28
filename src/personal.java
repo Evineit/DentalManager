@@ -10,9 +10,9 @@ public class personal implements Serializable {
 //            personalList.add(new especialista("Pedro","Maxilofacial"));
 //            personalList.add(new especialista("Pedro","Ortodoncista"));
 //            personalList.add(new especialista("Pedro","Endodoncista"));
-            personalList.add(new especialista("Pedro","Maxilofacial",12000.0,"618320000","Direccion generica No. 155 Av. Sion"));
-            personalList.add(new especialista("Pedro","Ortodoncista",12000.0,"618320000","Direccion generica No. 155 Av. Sion"));
-            personalList.add(new especialista("Pedro","Endodoncista",12000.0,"618320000","Direccion generica No. 155 Av. Sion"));
+            personalList.add(new especialista("Pedro Flores Garcia","Maxilofacial",12000.0,"618320000","Direccion generica No. 155 Av. Sion"));
+            personalList.add(new especialista("Henry Perez","Ortodoncista",12000.0,"618320000","Direccion generica No. 155 Av. Sion"));
+            personalList.add(new especialista("Hannibal Navar Aragon","Endodoncista",12000.0,"618320000","Direccion generica No. 155 Av. Sion"));
         }
         return personalList;
     }

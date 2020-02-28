@@ -37,6 +37,8 @@ public class clientesPanel extends JPanel {
     JPanel clientePagos;
     GridBagConstraints limitePagos;
     JButton buttonCobro =new JButton("Efectuar Pago");
+    JButton buttonLiqui =new JButton("Liquidar adeudo");
+
     public clientesPanel() {
         setLayout(new BorderLayout());
         topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -145,6 +147,19 @@ public class clientesPanel extends JPanel {
                 updatePagosCli();
             }
         });
+        buttonLiqui.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cliente clie = listModel.getPersona(selectList);
+                int decision = JOptionPane.showConfirmDialog(null,"Esta seguro de que desea liquidar el adeudo de: "+clie.getAdeudo(),"Confirmar pago",JOptionPane.WARNING_MESSAGE);
+                if (decision==JOptionPane.YES_OPTION){
+                    clie.setCobrado(clie.getAdeudo()+clie.getCobrado());
+                    clientes.saveClientes();
+                    updatePagosCli();
+                }
+//                return;
+            }
+        });
 
 
     }
@@ -222,12 +237,13 @@ public class clientesPanel extends JPanel {
         limites.weighty=0;
         limites.weightx=0;
         limites.gridheight=1;
-        limites.insets = new Insets(10,10,10,10);
+        limites.insets = new Insets(40,10,10,10);
 
-        clientePagos.add(new JLabel("Adeudo: "+ clie.getAdeudo()),limites);
+        clientePagos.add(new JLabel("Adeudo: $"+ clie.getAdeudo()),limites);
 //        clientePagos.add(new JLabel("Cobrado: "+ clie.getCobrado()));
         if (clie.getAdeudo()>0){
             clientePagos.add(buttonCobro,limites);
+            clientePagos.add(buttonLiqui,limites);
         }
         limites.weighty=1;
         clientePagos.add(new JLabel(""),limites);

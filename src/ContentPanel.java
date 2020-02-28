@@ -14,12 +14,16 @@ public class ContentPanel extends JPanel {
     public ContentPanel() {
         setLayout(new BorderLayout());
         ClockLabel clock = new ClockLabel();
+        clock.setPreferredSize(new Dimension((int)clock.getPreferredSize().getWidth(),26));
         add(clock, BorderLayout.NORTH);
         JPanel centro = new JPanel(new BorderLayout());
         add(centro);
         centro.setBackground(Color.white);
         setOpaque(true);
+//        System.out.println(clock.getPreferredSize().toString());
+
     }
+
 }
 class ClockLabel extends JLabel implements ActionListener {
 
