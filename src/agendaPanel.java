@@ -8,7 +8,7 @@ public class agendaPanel extends JPanel {
     JScrollPane scrollAgenda;
     JTable tabla;
     CustomTableModel model;
-
+    //Todo cuando sales de la crecion de cita que regreses al calendario no al inicio
     public agendaPanel(especialista espec) {
         setLayout(new BorderLayout());
         model = new CustomTableModel(espec);

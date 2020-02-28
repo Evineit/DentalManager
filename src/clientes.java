@@ -5,10 +5,11 @@ public class clientes {
     private static ArrayList<cliente> arrayClientes = new ArrayList();
 
     public static ArrayList getArrayClientes() {
-        if (arrayClientes.size() == 0) {
-            loadClientes();
-            return arrayClientes;
-        }
+//        if (arrayClientes.size() == 0) {
+//            loadClientes();
+//            return arrayClientes;
+//        }
+        loadClientes();
         return arrayClientes;
     }
 

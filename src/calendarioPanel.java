@@ -24,6 +24,7 @@ public class calendarioPanel extends JPanel {
         for (especialista esp: espeList){
             topMenu.addItem(esp);
         }
+        topPane.add(new JLabel("Citas del especialista: "));
         topPane.add(topMenu);
         topPane.add(nuevaCita);
 //        topPane.add(fecha);

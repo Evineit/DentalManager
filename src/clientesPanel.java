@@ -6,10 +6,11 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.regex.Pattern;
 
 public class clientesPanel extends JPanel {
     JButton nClienteB = new JButton("Nuevo cliente");
-    JLabel ordenar = new JLabel("Ordenar por:");
+//    JLabel ordenar = new JLabel("Ordenar por:");
     JList listaClientes = new JList();
     CustomListModel listModel = new CustomListModel();
     CustomTableModel model;
@@ -25,6 +26,7 @@ public class clientesPanel extends JPanel {
     JTextField clieName;
     JTextField clieLastName;
     JTextField cliePhone;
+    final Pattern patronNumero = Pattern.compile("(\\(\\d{3}\\)[.-]?|\\d{3}[.-]?)?\\d{3}[.-]?\\d{4}");
     JButton saveClie;
     JPanel clienteCitas;
     GridBagConstraints limiteCitas;
@@ -93,6 +95,24 @@ public class clientesPanel extends JPanel {
                 clie.setName(clieName.getText());
                 clie.setLastName(clieLastName.getText());
                 clie.setPhone(cliePhone.getText());
+                if (clie.getName()==null||clie.getName().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Ingrese un nombre");
+                    return;
+                }
+                if (clie.getLastName()==null||clie.getLastName().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Ingrese un apellido");
+                    return;
+                }
+                if (clie.getPhone()==null||clie.getPhone().isEmpty()){
+                    JOptionPane.showMessageDialog(null,"Ingrese un telefono");
+                    return;
+                }
+                if (!patronNumero.matcher(clie.getPhone()).matches()){
+                    JOptionPane.showMessageDialog(null,"Ingrese un teléfono valido","Error",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+
                 clientes.saveClientes();
                 repaint();
                 revalidate();

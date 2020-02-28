@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.TimePicker;
 
 
@@ -18,7 +19,7 @@ public class citasPanel extends JPanel {
     private JTextField fieldSrchCliente = new JTextField("Buscar cliente");
     private JLabel labelnCliente = new JLabel("Nuevo cliente");
     private JList listClientes = new JList();
-    private CustomListModel listModel = new CustomListModel();
+    private CustomListModel listModel;
     private int selected;
     private JButton selecCliente = new JButton("Seleccionar");
     private JScrollPane ScrollList;
@@ -48,6 +49,7 @@ public class citasPanel extends JPanel {
     leftPanel leftPanel;
     public citasPanel(Object selectedItem,leftPanel leftPanel) {
         this.leftPanel=leftPanel;
+        listModel = new CustomListModel();
         selecLimites = new GridBagConstraints();
         setLayout(new GridBagLayout());
 //        limites.gridheight = GridBagConstraints.RELATIVE;
@@ -137,7 +139,9 @@ public class citasPanel extends JPanel {
                     });
                     add(comboProvider,citasLimite);
                     add(labelFecha,citasLimite);
-                    datePicker = new DatePicker();
+                    DatePickerSettings vetoDate = new DatePickerSettings();
+                    datePicker = new DatePicker(vetoDate);
+                    vetoDate.setDateRangeLimits(LocalDate.now(),LocalDate.now().plusYears(1));
                     add(datePicker,citasLimite);
                     add(labelInicio,citasLimite);
                     timePicker = new TimePicker();
@@ -185,9 +189,24 @@ public class citasPanel extends JPanel {
         saveCita.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                //TODO Validar ingrso de calendario
                 fecha = datePicker.getDate();
+                if (fecha==null){
+                    JOptionPane.showMessageDialog(null,"Ingresa una fecha correcta","Fecha invalida",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 horaInicio = timePicker.getTime();
+                if (horaInicio==null){
+                    JOptionPane.showMessageDialog(null,"Ingresa una hora correcta","Hora invalida",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                ArrayList<Cita> citasList = (ArrayList<Cita>) CitasList.getCitasList().clone();
+                citasList.removeIf(cita -> !cita.getFecha().equals(fecha));
+                citasList.removeIf(cita -> !cita.getHora().equals(horaInicio));
+                if (!citasList.isEmpty()){
+                    JOptionPane.showMessageDialog(null,"La Fecha de esta cita coincide con otra.\nPor favor cambie la fecha");
+                    return;
+                }
+
                 Cita cita = new Cita(fecha,horaInicio,(Servicio) comboServicio.getSelectedItem(),
                         (cliente) clientes.getArrayClientes().get(listClientes.getSelectedIndex()),
                         (especialista) comboProvider.getSelectedItem());
@@ -195,7 +214,6 @@ public class citasPanel extends JPanel {
                 CitasList.saveCitas();
                 JOptionPane.showMessageDialog(null,"Cita añadida exitosamente.",
                         "Informacion",JOptionPane.INFORMATION_MESSAGE);
-                //TODO content changer
                 leftPanel.changeToHome();
 
             }
@@ -211,6 +229,7 @@ public class citasPanel extends JPanel {
 }
 class CustomListModel extends AbstractListModel{
     private ArrayList lista = clientes.getArrayClientes();
+
     @Override
     public int getSize() {
         return lista.size();
@@ -221,6 +240,7 @@ class CustomListModel extends AbstractListModel{
         cliente clie = (cliente) lista.get(index);
         return clie.getName() + " "+clie.getLastName();
     }
+
     public void addCliente(cliente clie){
         lista.add(clie);
         this.fireIntervalAdded(this,getSize(),getSize()+1);
