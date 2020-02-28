@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class personal implements Serializable {
-    private static ArrayList personalList = new ArrayList();
+    private static ArrayList<especialista> personalList = new ArrayList();
 
     public static ArrayList<especialista> getPersonalList() {
         if (personalList.size()==0){
